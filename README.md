@@ -59,7 +59,7 @@ Next, add this repository via a local manifest. Create
   <remote name="github"
     fetch="https://github.com" />
   <project path="device/oneplus/dre9"
-    name="daboross/android_device_oneplus_dre9-twrp"
+    name="Sprungles/dre_TWRP"
     remote="github"
     revision="android-11" />
 </manifest>
