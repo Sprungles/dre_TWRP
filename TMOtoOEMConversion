@@ -1,0 +1,202 @@
+# Conversion from dre TMO to dre OEM
+- all credits to @scanman0 on XDA
+
+1. Do NOT flash Intl. DE2117AA firmware or use msmtool for DE2117AA on any US phone or you will no longer make/receive voice or text calls until you flash back to US firmware with Fastboot Enhance
+
+
+2. You must NOT stop the guide after you flash DE2117 onto the first slot as the phone will NOT be fully converted until it takes the OTA update to Android 12 and one more to C_17.
+
+If you go to the about screen before the Android 12 OTA update, you will still see DE2118.
+
+3. A You should take ALL OTA updates to Android 12 C_17 and then follow the root guide for Dummies if you want to test drive the latest and very stable current OEM firmware.
+
+B Flash back to DE2117 Android 11 final with my downgrade guide to go back to the final Android 11 DE2117 US before you install current N200 Lineage.
+Lineage requires you to be on Android 11 or it will soft brick when you flash Lineage boot.img.
+
+4. Finally, I have had enough people use my N200 guides that they are proven to work very well, but I take no responsibility if you abort the flashing process or skip parts of the guide and manage to boot loop/brick your phone!
+
+However, I will work with you to get you going again. This phone cannot be fully bricked with the Qualcomm chipset and EDL recovery mode. You will create a full backup of your phone in the guide, so you can restore it 100% even if you walk away and your cat manages to fully wipe the entire firmware area of the phone with Fastboot Enhance. :oops:
+
+PREREQUISITES: (see other guides)
+
+1. You must have your boot loader unlocked.
+
+2. Request and receive your unlock token from OP website to unlock boot loader.
+(This takes exactly one week from requesting on Oneplus Website until OnePlus delivers the unlock token.)
+
+If your phone is still sim subsidy locked and you cannot move the "OEM unlocking in dev options to on as it's greyed out, follow steps (20-24) to bypass this and turn on OEM unlocking so you can get unlocking code without being sim unlocked.
+
+3. Install latest Android Platform Tools installed on PC. Currently v33.0.3
+Old versions platform tools will cause fastboot commands to FAIL!!
+
+4. Fastboot Enhance tool
+Download and unzip folder into working directory.
+
+This tool is Windows only and requires .net framework 4.5 (can be ran in VM with enough free ram for experienced linux users) This tool also needs a good amount of ram as someone with a old Windows 7 machine with very limited ram had the program hang when unpacking the firmware. They then switched to a newer machine resolved the issue.
+
+5. Backup your phone data as this guide will wipe your phone in the process.
+
+I recommend you put a MicroSD card in your N200 and select MicroSD card as backup location in Swift/APP Manager as all data on MicroSD will survive a phone wipe/reset.
+
+A. The most simple backup tool is Swift Backup with a rooted phone to save all your app, data, phonebook, texts, and wifi passwords for easy restore after you are converted, upgraded and re-rooted.
+
+
+B. For power users I highly recommend using App Manager to back up your apps.
+The App Manager instructions are worth reading like a book as this tool is very complex and powerful.
+
+This tool will backup APK source files/splits, internal/ext data/obb and media/cache, app permissions, battery savings,data usage, Magis khide status, SSAID, rules set up in App Manager. It will also import backups fromOAndBackup, Titanium and Swift (3.0-3.2) and keep multiple version backups of same app.
+
+It's also an Interceptor, Manifest viewer, Scanner (API key from virus total), Enhanced Package installer with version upgrade/downgrade information and library add/remove info on install, Usage, Log viewer with colors/filters, App explore and much more.
+-----------------------------------------------------------------------------------------
+Begin GUIDE
+-----------------------------------------------------------------------------------------
+1. Place your phones unlock key into Platform Tools directory.
+(You can download it again by logging into OnePlus site and going to this page.)
+
+2. Download Tmobile/MetroPCS OnePlus MSMtool for V11.0.1.7 and unzip to working folder of your choice.
+
+3A. Download FINAL Android V11 Update Image .
+
+If installing Lineage,You MUST flash Lineage boot.ini from Android 11 or you WILL go into a soft boot loop from Android 12!
+
+3B. If you are going to re-flash your phone that is already flashed to DE2117 and on A12 due to a bad update (in a soft boot loop) or installed other A12 rom and need to flash back, Download Full US OEM A12 C_16 Update Image and keep as .zip file and place in working folder instead.
+
+(See Downgrade Guide if you are already running US OEM A12 and want to go back to A11 to install Lineage.)
+
+4. Go to working folder you unzipped msmtool and open folder "dre8t_10_O.07_211014_repack"
+
+5. A. Execute program as Administrator "MsmDownloadTool V4.0.exe" if your running Windows 10 or 11.
+B. Execute program as administrator "MsmDownloadTool V4.0_Win7.exe" if your running Windows 7.
+
+6. At login prompt, change user type to:
+"User Type: Others" & Hit Next button.
+
+7. At main page of MsmDownload Tool hit "F8"
+
+A new window will pop-up that is called Firehose Readback:
+(Ignore my crazy Windows theme colors - Yours will look different)
+Firehose Readback.jpg
+
+8. Locate Password box at bottom of pop-up and enter lowercase password: oneplus
+
+9. Make sure the box is still active window and hit <cntrl-a> and every box in the list will then become checked.
+
+10. hit OK to close box.
+
+11. Click new "Read Back" button.
+
+13. Place phone in special EDL recovery mode:
+
+A. Since ADB is working, it is easier to simply open your Android Platform tools folder in Explorer and type cmd in location box to open dos prompt and type:
+
+C:\platform-tools>adb reboot edl
+
+B. You can turn phone off and then hold both volume buttons down and power on to force phone into EDL mode if phone is not working properly.
+
+NOTE: When phone is in EDL mode the screen on the phone will be BLANK.
+This is NORMAL.
+
+14. As soon as the command is entered switch back to MSMtool window and watch it make a FULL backup of your phone including all firmware (slot a/b) and phone identifying information areas. When this is complete your phone will reboot.
+
+Firehose Main1.jpg
+
+15. Go to root of system drive (Default C:\) in explorer and sort files by date (Double Click on the Date Modified) and move all the new files just created ending in .bin, .img, .elf, and .mbn to a folder and name it to identify this exact phone if you have more than one N200 and store in a safe place like a USB flash drive. You can zip the folder first to save space.
+
+See: Firehose backup files.txt attached for full list.
+
+Do NOT share this backup with anyone online as they can clone your phones IMEI/SN with this PRIVATE backup data!
+
+16. Re-run msmtool again. It will remember user type option: others. Click Next.
+
+17. This time at main screen simply press start. and place phone in EDL mode as in step 13.
+
+18. Watch the tool flash V11.0.1.7 firmware and most importantly the older fastbootd that is proven to perform the conversion firmware flash.
+(Phone will reboot wiped/locked and in out of box condition.)
+
+19. Do phone setup offline without entering wifi and as soon as you are out of setup turn off data to prevent phone from starting to download firmware update from OTA.
+
+20. Goto Settings -> About Device -> Version -> build number and click until developer again.
+
+21. Goto Settings -> System Settings -> Developer Options and turn on USB debugging and then exit settings.
+
+22. Go back to dos box and send command to remove software that prevents OEM Unlock from being turned on:
+
+C:\platform-tools>adb shell pm uninstall --user 0 com.qualcomm.qti.uim
+
+23. On Phone: Go to Settings -> System Settings -> Developer Options
+
+Turn ON "OEM Unlocking"
+
+24. Go back to dos box and type:
+C:\platform-tools>adb reboot fastboot
+
+25. Send your unlock code to phone again.
+(Assuming the file is called unlock_code.bin)
+
+C:\platform-tools>fastboot flash cust-unlock unlock_code.bin
+
+26. Unlock Bootloader:
+
+C:\platform-tools>fastboot oem unlock
+
+27. Follow on screen directions and phone will unlock bootloader, erase data and enter new phone setup again.
+
+Do steps 19-21 again (developer/adb debugging on) and step 24 (Reboot to fastboot)
+
+Now visually verify your phone is in Fastboot mode and unlocked.
+
+28. Go to working folder in explorer and open folder "Fastboot_EnhanceV1.3.0" and execute "FastbootEnhance.exe"
+
+29. On Fastboot Visualization tab, Double click on your device that will be shown.
+
+30. Now you have two tabs, "Basic Properties" and Partitions.
+
+31. Click on Partitions tab and scroll to bottom of the partitions list and verify that there are none that end in "_cow"
+(They are creeated when you do OTA upgrades. They are left over and need to be deleted if present otherwise there may not be enough room to write new image.)
+
+32. Highlight EVERY file ending in "_cow" and click the erase button.
+They are always at the bottom of the list.
+
+Repeat until there are NO files ending in "_cow"
+
+33. Click the button bottom left corner called "Reboot to Fastbootd"
+
+34. Your phone willl now reboot into special fastbootd mode.
+
+35. Click English on phone to see this. Do NOT click any other options on phone.
+
+36. Tick the box on right Show Logs to watch it's progress. A log box will pop up. Drag it over to the side to watch.
+
+37. Tick the box Ignore Unknown Partitions
+(fastbootd will NOT flash over newer modem firmware with older, if flashing older firmware and required for flash to still work)
+
+38A. Click Flash Payload Bin box and select file "DE2117-A11-Final-OnePlusN200Oxygen_10.O.11_OTA_011_all_2203021426_downgrade_66cde69fe1e342db.zip" from working directory.
+38B. For Android 12 USS OEM Reflash-Restore, Select file "(US_RETAIL_A12_C_16_FULL_ROM)DE2117_11.C.15_0150_202205192325.zip"
+
+39. Click Flash Payload bin button.
+It will unpack all the partitions from the .zip file first.
+
+It will then delete old partitions and re-create partition with new required size and flash each .bin file of firmware one at a time automatically.
+
+40. WAIT.....Watch the log output window and DO NOTHING until complete.
+
+A. Fastboot Enhance will unpack all the partitions from the .zip file first.
+
+B. It will then delete old partitions and re-create partition with new required size and flash each .bin file of firmware one at a time automatically.
+
+41. When process is finished click "Reboot to recovery" button.
+
+42. on phone, tap English.
+
+43. on phone, tap "wipe data" and follow prompts to wipe and restart.
+
+You will now boot up on US OEM DE2117 Android 11 Final.
+
+WARNING: Do NOT stop the guide at this point, as your phone is not fully converted yet!
+
+If you go to about info you will still see DE2118 and the boot area and other slot is still on carrier firmware! (Even if you are going to install Lineage, you must continue OTA upgrades to Android 12 C_17 and then downgrade to Android 11 afterwards)
+
+
+44. Perform system setup with wifi and go to settings -> about device and perform system update and you will update to A12 (C_16) and proceed to second partial OTA update to latest OTA (C_17) before following the root guide for dummies
+
+At the following link is the Firehose Backup files.txt: https://forum.xda-developers.com/attachments/firehose-backup-files-txt.5698411/
