@@ -1,3 +1,7 @@
+# NOTE:
+
+If you need to convert to OEM, use the TMOtoOEMConversion document (all credits go to scanman0) and follow the directions EXACTLY as written. You will want a backup so you don't have to restore via the MSMTool later down the line.
+
 # Device Tree for OnePlus Nord N200 5G NA unlocked variant (dre9) for TWRP
 
 The OnePlus Nord N200 5G (codenamed _"dre9"_) is a budget smartphone from
